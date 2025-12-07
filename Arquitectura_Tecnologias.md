@@ -1,4 +1,4 @@
-# GodEye - Arquitectura y Tecnologías
+# GEODE - Arquitectura y Tecnologías
 
 **Versión:** 5.0  
 **Fecha:** 2025-12-07  
@@ -127,15 +127,15 @@ class CaptureRepositoryImpl(
 ```kotlin
 // Retrofit client
 object RetrofitClient {
- val apiService: GodEyeApiService by lazy {
+ val apiService: GEODEApiService by lazy {
  // Inicialización
  }
 }
 
 // Database
-object GodEyeDatabase {
- private var INSTANCE: GodEyeDatabase? = null
- fun getDatabase(context: Context): GodEyeDatabase {
+object GEODEDatabase {
+ private var INSTANCE: GEODEDatabase? = null
+ fun getDatabase(context: Context): GEODEDatabase {
  return INSTANCE ?: synchronized(this) {
  // Crear instancia
  }
@@ -220,7 +220,7 @@ Retrofit.Builder()
  .build()
 
 // Room Database Builder
-Room.databaseBuilder(context, GodEyeDatabase::class.java, "godeye_db")
+Room.databaseBuilder(context, GEODEDatabase::class.java, "geode_db")
  .fallbackToDestructiveMigration()
  .build()
 ```
@@ -294,7 +294,7 @@ fun CaptureData.toEntity(): CaptureEntity {
  version = 5,
  exportSchema = false
 )
-abstract class GodEyeDatabase : RoomDatabase()
+abstract class GEODEDatabase : RoomDatabase()
 ```
 
 ### Networking
@@ -468,12 +468,12 @@ app/
  java/com/example/godeye/
  data/
  api/
- GodEyeApiService.kt
+ GEODEApiService.kt
  RetrofitClient.kt
  ReportModels.kt
  AuthModels.kt
  database/
- GodEyeDatabase.kt
+ GEODEDatabase.kt
  Entities.kt
  Daos.kt
  repository/
@@ -583,7 +583,7 @@ interface CaptureDao {
 
 **Service Interface:**
 ```kotlin
-interface GodEyeApiService {
+interface GEODEApiService {
  @POST("auth/register")
  suspend fun register(@Body request: RegisterRequest): Response<AuthResponse>
  
@@ -616,7 +616,7 @@ interface CaptureRepository {
 ```kotlin
 class CaptureRepositoryImpl(
  private val captureDao: CaptureDao,
- private val apiService: GodEyeApiService
+ private val apiService: GEODEApiService
 ) : CaptureRepository {
  
  override fun getAllCaptures(email: String): Flow<List<CaptureData>> {
@@ -744,7 +744,7 @@ class CaptureViewModel : ViewModel() {
 **NavHost:**
 ```kotlin
 @Composable
-fun GodEyeApp() {
+fun GEODEApp() {
  val navController = rememberNavController()
  
  NavHost(
@@ -1351,7 +1351,7 @@ fun RequestNotificationPermission() {
 
 ## Conclusión
 
-GodEye está construido con **arquitectura moderna de Android**, siguiendo las **mejores prácticas** recomendadas por Google:
+GEODE está construido con **arquitectura moderna de Android**, siguiendo las **mejores prácticas** recomendadas por Google:
 
 ✅ **Clean Architecture** con separación de capas  
 ✅ **MVVM** para separación UI/lógica  
